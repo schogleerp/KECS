@@ -1,0 +1,238 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.fs-section {
+  background-color: $color-background;
+  padding: 0; // Handled by grid/lines
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 50;
+  overflow: visible;
+
+  // ── Windowed Scroll Container ──
+  .fs-scroll-window {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  // ── Top identifier bar ─────────────────────────────────────
+  .fs-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    border-bottom: 1px solid rgba($color-border, 0.22);
+    margin-bottom: 6rem;
+
+    .fs-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .fs-topbar-rule {
+        display: block;
+        width: 1.5rem;
+        height: 1px;
+        background-color: $color-brand-red;
+      }
+
+      .fs-topbar-label {
+        font-family: $font-sans;
+        font-size: 0.6rem;
+        font-weight: $weight-bold;
+        letter-spacing: 0.2rem;
+        color: $color-brand-red;
+        text-transform: uppercase;
+      }
+    }
+
+    .fs-topbar-index {
+      font-family: $font-serif;
+      font-size: 0.7rem;
+      color: rgba(0,0,0, 0.18);
+      font-weight: $weight-bold;
+      letter-spacing: 0.1rem;
+    }
+  }
+
+  .fs-container {
+    // Width constraints removed for full-viewport effect
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  // ── Header Strip ──────────────────────────────────────────
+  .fs-header {
+    margin-bottom: 6rem;
+    padding: 0 4rem; // Offset text from edge while lines stretch
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .fs-heading {
+      font-family: $font-serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem); // Reduced from 5.5rem
+      line-height: 1.05;
+      font-weight: $weight-bold;
+      letter-spacing: -0.02em;
+      color: $color-brand-blue;
+      margin: 0;
+    }
+  }
+
+  // ── "Selected Works" Architectural Layout ────────────────────
+  .fs-works-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+  }
+
+  .fs-works-row {
+    position: relative;
+    display: flex;
+    min-height: 650px;
+    width: 100%;
+
+    @include respond-down($bp-tablet) {
+      flex-direction: column;
+      min-height: auto;
+    }
+  }
+
+  // Text Block (40%)
+  .fs-works-text {
+    flex: 0 0 40%;
+    padding: 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include respond-down($bp-tablet) {
+      flex: none;
+      width: 100%;
+      padding: 4rem 2rem;
+    }
+
+    .fs-text-inner {
+      max-width: 520px;
+
+      .fs-works-title {
+        font-family: $font-serif;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem); // Reduced scale
+        font-weight: $weight-bold;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: $color-brand-blue;
+        margin: 1rem 0 1.8rem;
+      }
+
+      .fs-detailed-explaining {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+
+        p {
+          font-family: $font-sans;
+          font-size: 0.98rem;
+          line-height: 1.75;
+          color: rgba($color-text, 0.75);
+          margin: 0;
+        }
+      }
+
+      .fs-meta-row {
+        margin-top: 3.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba($color-border, 0.18);
+
+        .meta-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          .meta-val {
+            font-family: $font-sans;
+            font-size: 0.85rem;
+            font-weight: $weight-semibold;
+            color: $color-brand-blue;
+          }
+        }
+      }
+    }
+  }
+
+  // Image Block (60%)
+  .fs-works-image {
+    flex: 0 0 60%;
+    position: relative;
+    
+    @include respond-down($bp-tablet) {
+      flex: none;
+      width: 100%;
+      aspect-ratio: 16/10;
+    }
+
+    .divider {
+      position: absolute;
+      left: 0;
+      width: 1px;
+      height: 100%;
+      background: rgba($color-border, 0.2);
+      top: 0;
+    }
+
+    .fs-image-inset {
+      position: absolute;
+      inset: 2.5rem; // 40px gapping from grid lines
+      overflow: hidden;
+      will-change: transform, clip-path;
+
+      @include respond-down($bp-tablet) {
+        inset: 1.5rem;
+      }
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  // Shared Labels
+  .ds-label-small {
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2rem;
+    color: $color-brand-red;
+    text-transform: uppercase;
+  }
+
+  .ds-label-mini {
+    font-family: $font-sans;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+    color: rgba($color-text, 0.4);
+    text-transform: uppercase;
+  }
+
+  // ── Responsive Overrides ──
+  @include respond-down($bp-desktop) {
+    .fs-container { padding: 0 2rem; }
+  }
+
+  @include respond-down($bp-tablet) {
+    padding: 6rem 0;
+    .fs-header { margin-bottom: 4rem; }
+  }
+}

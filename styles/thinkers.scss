@@ -1,0 +1,213 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.thinkers-section {
+  width: 100%;
+  height: 110vh; // Slight extra height for pinning comfort
+  background-color: #111;
+  color: $color-white;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .thinkers-bg-text {
+    position: absolute;
+    top: 55%;
+    left: 10%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+
+    .bg-text-inner {
+      display: block;
+      font-family: $font-serif;
+      font-size: 30vw;
+      font-weight: $weight-bold;
+      color: rgba($color-white, 0.02);
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      will-change: transform;
+    }
+  }
+
+  .thinkers-header {
+    position: absolute;
+    top: 10%;
+    left: 4rem;
+    right: 4rem;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .section-label {
+        font-family: $font-sans;
+        font-size: 0.75rem;
+        font-weight: $weight-bold;
+        letter-spacing: 0.2em;
+        color: rgba($color-white, 0.4);
+      }
+
+      h2 {
+        font-family: $font-serif;
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: $weight-bold;
+        margin: 0;
+        line-height: 1;
+      }
+    }
+  }
+
+  .thinkers-scroll-container {
+    position: relative;
+    z-index: 5;
+    margin-top: 5vh;
+  }
+
+  .thinkers-wrapper {
+    display: flex;
+    gap: 0;
+    width: fit-content;
+    padding-left: 20vw; // Start offset
+    padding-right: 20vw;
+
+    .thinker-card {
+      width: 450px;
+      padding: 4rem;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      border-right: 1px solid rgba($color-white, 0.08);
+      position: relative;
+
+      &:first-child {
+        border-left: 1px solid rgba($color-white, 0.08);
+      }
+
+      .thinker-num {
+        font-family: $font-sans;
+        font-size: 0.8rem;
+        font-weight: $weight-bold;
+        color: rgba($color-white, 0.3);
+      }
+
+      .thinker-image {
+        width: 100%;
+        height: 550px;
+        position: relative;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .image-mask {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #111;
+          transform: scaleY(0);
+          transform-origin: top;
+          transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+      }
+
+      .thinker-info {
+        h3 {
+          font-family: $font-serif;
+          font-size: 2rem;
+          font-weight: $weight-bold;
+          margin: 0;
+          letter-spacing: -0.02em;
+        }
+
+        p {
+          font-family: $font-sans;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: rgba($color-white, 0.5);
+          margin-top: 0.5rem;
+        }
+      }
+
+      &:hover {
+        .thinker-image img {
+          transform: scale(1.08);
+        }
+      }
+    }
+  }
+
+  .thinkers-progress-wrap {
+    position: absolute;
+    bottom: 8%;
+    left: 4rem;
+    right: 4rem;
+    z-index: 10;
+
+    .progress-bar {
+      width: 100%;
+      height: 1px;
+      background-color: rgba($color-white, 0.1);
+      position: relative;
+
+      .progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $color-white;
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+    }
+  }
+
+  @include respond-down($bp-tablet) {
+    height: auto;
+    padding: 6rem 0;
+    
+    .thinkers-bg-text, .thinkers-progress-wrap {
+      display: none;
+    }
+
+    .thinkers-header {
+      position: static;
+      padding: 0 1.5rem;
+      margin-bottom: 3rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .thinkers-wrapper {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      
+      .thinker-card {
+        width: 320px;
+        padding: 2rem;
+        
+        .thinker-image {
+          height: 400px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.admissions-portals-section {
+  width: 100%;
+  position: relative;
+  background-color: $color-background;
+  z-index: 10;
+  
+  .ap-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+  }
+
+  .ap-block {
+    grid-column: span 4;
+    padding: 6rem 4rem; // Huge editorial padding + architectural gutter
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1.5rem;
+    
+    .ap-kicker {
+      font-family: $font-sans;
+      font-size: 0.75rem;
+      font-weight: $weight-bold;
+      color: rgba($color-text, 0.4);
+      letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+    }
+
+    .ap-title {
+      font-family: $font-serif;
+      font-size: clamp(2rem, 3vw, 2.8rem); // High contrast serif
+      font-weight: $weight-light;
+      color: $color-brand-blue;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      
+      &.small {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .ap-desc {
+      font-family: $font-sans;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba($color-text, 0.6);
+      margin-bottom: 0.5rem; // Reduced spacing
+    }
+
+    &.portals-block {
+      gap: 4rem; // Space between portals list and enquiries
+      
+      .portal-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 0;
+      }
+
+      .enquiries-inner {
+        p {
+          font-family: $font-sans;
+          font-size: 0.95rem;
+          color: rgba($color-text, 0.8);
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  @include respond-down($bp-tablet) {
+    .ap-grid {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .ap-block {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid $color-border;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

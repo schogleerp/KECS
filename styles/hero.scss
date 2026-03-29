@@ -1,0 +1,177 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0b0d10; // Saturday Obsidian
+
+  .hero-video-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform-origin: center;
+      filter: brightness(0.85); // Cinematic dimming
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+      background-color: rgba(0,0,0,0.4);
+      z-index: 2;
+      transition: background-color 1s ease;
+    }
+  }
+
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    // --- User-Friendly Bottom-Left Layout ---
+    .hero-bottom-left-content {
+      width: 100%;
+      height: 100%;
+      padding: 0 5vw;
+      padding-left: 8rem; // Shift right to clear the vertical SCROLL indicator
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 4rem; // Drops block down to strictly align with bottom of SCROLL word
+
+      // Kicker
+      .hero-kicker {
+        margin-bottom: 2rem;
+        .tiny-label {
+          font-family: $font-sans;
+          font-size: 0.65rem;
+          font-weight: 800;
+          letter-spacing: 0.4em;
+          color: $color-gold;
+          text-transform: uppercase;
+        }
+      }
+
+      // Unified Title Container
+      // Unified Title Container (Pogonia Visual Reference)
+      .hero-unified-title {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-width: 900px; 
+        gap: 0.5rem; // Reduced gap per request to tighten the lockup
+        
+        .mission-line {
+          will-change: transform, opacity, filter;
+          
+          // Target 1: The 'Pogonia' Reference (using Inter Tight per request)
+          &.primary-pogonia {
+            font-family: 'Inter Tight', sans-serif; // Swapped back to 2nd line font
+            font-size: clamp(1.8rem, 3.2vw, 3rem); // Kept larger than 2nd line
+            font-weight: 900; // Unified with 2nd line technical-bold weight
+            text-transform: capitalize; // Title case matching image
+            white-space: nowrap; // Forced single line per request
+            color: $color-white;
+            letter-spacing: 0.05em; // Increased tracking per request
+            line-height: 1.05;
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.6));
+            
+            // Replicating the distinct orange dot accent from the reference image
+            .pogonia-dot {
+              color: #ff6a00; // Exact vibrant orange from the 'Pogonia' example
+              display: inline-block;
+              filter: drop-shadow(0 0 15px rgba(255, 106, 0, 0.4));
+            }
+          }
+          
+          // Target 2: The 'Modern Aesthetic' Reference (Micro, Stacked, Wide, Caps)
+          &.secondary-technical-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin-left: 0.5vw; // Minimal indent
+            
+            font-family: 'Inter Tight', sans-serif;
+            font-size: clamp(0.75rem, 1.2vw, 1.1rem); // Small, technical, micro-typography
+            text-transform: uppercase;
+            letter-spacing: 0.3em; // Extreme tracking matching the reference image exactly
+            color: $color-white;
+            line-height: 1.4;
+            
+            .technical-bold {
+              font-weight: 900; // Maximum top-line weight
+            }
+            
+            .technical-light {
+              font-weight: 300; // Minimal ultra-light bottom-line weight
+              opacity: 0.7; // Visual fade relative to the top bold line
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .hero-v-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba($color-gold, 0.2);
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 4rem;
+    left: 4.5rem;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    .indicator-track {
+      width: 1px;
+      height: 70px;
+      background: rgba($color-white, 0.12);
+      position: relative;
+      overflow: hidden;
+
+      .indicator-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $color-gold;
+        transform-origin: top;
+      }
+    }
+
+    .indicator-text {
+      font-size: 0.5rem;
+      font-weight: 800;
+      letter-spacing: 0.45em;
+      color: $color-white;
+      opacity: 0.5;
+      writing-mode: vertical-lr;
+      text-transform: uppercase;
+    }
+  }
+}

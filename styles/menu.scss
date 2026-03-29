@@ -1,0 +1,864 @@
+// Decor Systems 1:1 Menu — Light Theme
+// Matches: narrow left column (light gray), second column (white),
+// website visible on right, thin dividers, circle count badges.
+
+@use './variables' as *;
+@use './mixins' as *;
+
+// ─── DS Color tokens ──────────────────────────────────────────────────────────
+$ds-col1-bg     : #f0f0ee;          // light gray-white column 1
+$ds-col2-bg     : #ffffff;          // pure white column 2
+$ds-border      : #d8d8d6;          // thin separator lines
+$ds-text-main   : #1a1a1a;          // dark near-black for active/primary
+$ds-text-muted  : #777775;          // muted mid-gray for inactive links
+$ds-text-sub    : #1a1a1a;          // sub-link text
+$ds-text-count  : #1a1a1a;          // count badge text
+$ds-badge-border: #b0b0ae;          // badge border
+
+// ─── Column widths (Vertical Grid sync) ───────────────────────────────────
+$col1-w : 280px;  // Primary Categories
+$col2-w : 340px;  // Secondary Sub-links
+$col34-w: calc(100vw - #{$col1-w + $col2-w}); // Dynamic Preview Zone (Merged Col 3 & 4)
+
+// ─────────────────────────────────────────────────────────────────────────────
+.ds-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9000;
+  pointer-events: none;
+  display: flex;
+  visibility: hidden;               // toggled by GSAP
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.05);  // Subtle backdrop
+}
+
+// ─── Column base ─────────────────────────────────────────────────────────────
+.ds-col {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: transform;
+  pointer-events: auto;
+  background: #fff;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  // Thin right border
+  border-right: 1px solid $ds-border;
+}
+
+// ─── Column 1: Primary nav ───────────────────────────────────────────────────
+.ds-col--primary {
+  left: 0;
+  width: $col1-w;
+  background: $ds-col1-bg;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 0 32px;
+  z-index: 30;
+}
+
+.ds-primary-list {
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-primary-link {
+  display: block;
+  width: 100%;
+  padding: 10px 28px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: $ds-text-muted;
+  text-decoration: none;
+  transition: color 0.2s ease, font-weight 0.1s ease;
+
+  &:hover {
+    color: $ds-text-main;
+  }
+
+  &.is-active {
+    color: $ds-text-main;
+    font-weight: 600;
+  }
+}
+
+// Column 1 footer: call pill
+.ds-col-footer {
+  padding: 24px 20px 16px;
+  border-top: 1px solid $ds-border;
+  flex-shrink: 0;
+}
+
+.ds-call-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px 9px 14px;
+  border: 1px solid $ds-text-main;
+  border-radius: 100px;
+  font-family: $font-sans;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $ds-text-main;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  span {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    font-size: 11px;
+  }
+
+  svg {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    background: $ds-text-main;
+    color: #fff;
+
+    svg { transform: translateX(3px); }
+  }
+}
+
+// ─── Column 2: Sub nav ───────────────────────────────────────────────────────
+.ds-col--secondary {
+  left: $col1-w;
+  width: $col2-w;
+  background: $ds-col2-bg;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 0 40px;
+  z-index: 20;
+}
+
+// Close button (× inside col 2)
+.ds-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  color: $ds-text-muted;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $ds-text-main;
+  }
+}
+
+.ds-col2-inner {
+  padding: 0 40px;
+  flex: 1;
+}
+
+// "See All (N)" header link
+.ds-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: $font-sans;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: $ds-text-main;
+  text-decoration: none;
+  margin-bottom: 18px;
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 0.7; }
+
+  &__count {
+    font-weight: 400;
+    color: $ds-text-muted;
+    font-size: 12px;
+  }
+}
+
+// Thin horizontal divider
+.ds-sub-divider {
+  height: 1px;
+  background: $ds-border;
+  margin: 0;
+}
+
+// Sub-link list
+.ds-sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ds-sub-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  will-change: transform, opacity;
+
+  &:hover,
+  &.is-hovered {
+    padding-left: 8px;
+
+    .ds-sub-link__title {
+      color: $ds-text-main;
+      font-weight: 600;
+    }
+
+    .ds-sub-link__arrow {
+      opacity: 1;
+      transform: translateX(0);
+      color: $color-gold;
+    }
+  }
+
+  &__title {
+    font-family: $font-sans;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: $ds-text-sub;
+    line-height: 1.3;
+  }
+
+  &__arrow {
+    margin-left: auto;
+    color: $color-brand-red;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+  }
+
+  // Circle badge
+  &__count {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid $ds-badge-border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-sans;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: $ds-text-count;
+    margin-left: 12px;
+  }
+}
+
+// ─── Column 3: Immersive Splash Preview ──────────────────────────────────────
+.ds-col--preview {
+  left: $col1-w + $col2-w;
+  width: $col34-w;
+  background: #fdfdfb;
+  z-index: 10;
+  transform: translateX(-20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; // Remove restricted padding for immersive feel
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+  border-right: none;
+  overflow: hidden;
+
+  &.is-visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.ds-preview-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-preview-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch; // Full height content
+  animation: dsFadeInScale 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ds-preview-media {
+  flex: 0 0 55%; // Larger image presence
+  position: relative;
+  overflow: hidden;
+
+  .ds-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 12s linear; // Continuous drift for "magnetic" feel
+    transform: scale(1.05);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba($color-brand-blue, 0.2), transparent);
+    z-index: 1;
+  }
+  
+  .ds-preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 40%);
+    z-index: 2;
+  }
+}
+
+.ds-preview-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 6rem;
+  background: #fff;
+  z-index: 5;
+
+  .ds-preview-tag {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.55em;
+    font-weight: 800;
+    color: $color-gold;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    position: relative;
+    padding-left: 55px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 40px;
+      height: 1px;
+      background: $color-gold;
+      animation: dsDrawLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  }
+
+  h4 {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(3rem, 5.5vw, 5.5rem); // Enhanced impact
+    margin: 0 0 2rem;
+    color: $color-brand-blue;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    font-weight: 900;
+    max-width: 600px;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-family: $font-sans;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba($color-text, 0.7);
+    margin-bottom: 4rem;
+    max-width: 460px;
+    border-left: 1px solid rgba($color-gold, 0.4);
+    padding-left: 28px;
+    animation: dsFadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 0;
+  }
+
+  .ds-preview-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: $font-sans;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.25em;
+    color: $color-brand-blue;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 15px 0;
+    text-decoration: none;
+    position: relative;
+    width: fit-content;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $color-gold;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    svg {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      color: $color-gold;
+    }
+
+    &:hover {
+      &::after { width: 100%; }
+      svg { transform: translateX(12px); }
+    }
+  }
+}
+
+// ─── Institutional Preview (About Us — rich editorial card) ──────────────────
+.ds-preview-institutional {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  // Full-bleed background image
+  .ds-inst-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+      will-change: transform;
+      transform: scale(1.06);
+    }
+  }
+
+  // Cinematic dual gradient overlay
+  .ds-inst-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(to top,
+        rgba(8, 10, 22, 0.97) 0%,
+        rgba(8, 10, 22, 0.75) 40%,
+        rgba(8, 10, 22, 0.08) 100%
+      );
+  }
+
+  // Content layer
+  .ds-inst-content {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0; // Removing restricted padding for full-bleed content
+
+    // ── Architectural Overlay (Sync with Eyesight) ──────────────────────
+    .ds-preview-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+
+      .ds-line-v { background-color: rgba(255,255,255,0.06); height: 100%; position: absolute; top: 0; width: 1px; }
+      .ds-line-h { background-color: rgba(255,255,255,0.06); width: 100%; position: absolute; left: 0; height: 1px; }
+
+      .col-6 { left: 50%; opacity: 0.5; }
+      .col-9 { left: 75%; }
+      .row-mid { top: 50%; }
+    }
+
+    // ── Badge (top-left) ─────────────────────────────────────────────────
+    .ds-inst-badge {
+      position: absolute;
+      top: 2.2rem;
+      left: 2.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 0.5rem 0.9rem 0.5rem 0.5rem;
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+
+      .ds-inst-badge-logo {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        img {
+          width: 22px;
+          height: 22px;
+          object-fit: contain;
+          filter: brightness(0) invert(1);
+          opacity: 0.9;
+          transform: none !important; // override ken-burns from parent
+        }
+      }
+
+      .ds-inst-badge-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .ds-inst-badge-label {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.85);
+        line-height: 1;
+      }
+
+      .ds-inst-badge-sub {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 0.55rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        color: rgba(255,255,255,0.4);
+        line-height: 1;
+      }
+    }
+
+    // ── Gold tag line ────────────────────────────────────────────────────
+    .ds-inst-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 1px;
+        background: $color-gold;
+        flex-shrink: 0;
+      }
+
+      span {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: $color-gold;
+      }
+    }
+
+    // ── Heading ──────────────────────────────────────────────────────────
+    .ds-inst-heading {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: #fff;
+      margin: 0 0 1.2rem;
+    }
+
+    // ── Main Content Zone ────────────────────────────────────────────────
+    .ds-inst-main {
+      padding: 4rem 2.8rem 2rem;
+    }
+
+    // ── Footer Interaction Zone ──────────────────────────────────────────
+    .ds-inst-footer {
+       display: flex;
+       align-items: flex-end;
+       justify-content: space-between;
+       gap: 2rem;
+       padding: 0 2.8rem 3rem;
+
+       @include respond-down($bp-desktop) {
+         flex-direction: column;
+         align-items: flex-start;
+       }
+    }
+
+    // ── Description ──────────────────────────────────────────────────────
+    .ds-inst-body {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.84rem;
+      line-height: 1.7;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 420px;
+      margin-bottom: 1.6rem;
+    }
+
+    // ── Stats strip ──────────────────────────────────────────────────────
+    .ds-inst-stats {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.4rem;
+
+      .ds-inst-stat {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding-right: 1.2rem;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        margin-right: 1.2rem;
+
+        &:last-child {
+          border-right: none;
+          margin-right: 0;
+          padding-right: 0;
+        }
+
+        strong {
+          font-family: 'Arial Black', sans-serif;
+          font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+          font-weight: 900;
+          color: #fff;
+          line-height: 1;
+          letter-spacing: -0.04em;
+        }
+
+        span {
+          font-family: 'Inter Tight', sans-serif;
+          font-size: 0.6rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.4);
+        }
+      }
+    }
+
+    // ── Thin divider ─────────────────────────────────────────────────────
+    .ds-inst-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 1.2rem;
+    }
+
+    // ── Highlights pills ─────────────────────────────────────────────────
+    .ds-inst-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.6rem;
+
+      .ds-inst-pill {
+        font-family: 'Inter Tight', sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 0.35rem 0.75rem;
+        border-radius: 2px;
+        transition: all 0.25s ease;
+
+        &:hover {
+          color: $color-gold;
+          border-color: rgba($color-gold, 0.4);
+        }
+      }
+    }
+
+    // ── CTA link ─────────────────────────────────────────────────────────
+    .ds-inst-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      padding: 1.2rem 2.4rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      background: transparent;
+      white-space: nowrap;
+
+      svg { transition: transform 0.4s ease; }
+
+      &:hover {
+        background: $color-gold;
+        border-color: $color-gold;
+        color: $color-brand-blue;
+        transform: translateY(-5px);
+        svg { transform: translateX(8px); }
+      }
+    }
+  }
+}
+
+// ─── Back button (Mobile drill-down)
+.ds-back-btn {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 30px;
+  font-family: $font-sans;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $ds-text-muted;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: $ds-text-main;
+    svg { transform: translateX(-3px); }
+  }
+
+  @include respond-down($bp-tablet) {
+    display: flex;
+  }
+}
+
+// ─── Animations ─────────────────────────────────────────────────────────────
+
+@keyframes dsFadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+
+@keyframes dsDrawLine {
+  from { width: 0; }
+  to { width: 40px; }
+}
+
+@keyframes dsFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+@include respond-down($bp-tablet) {
+  .ds-menu-overlay {
+    background: #fff;
+    
+    // Manage drill-down overflow
+    &.is-sub-active {
+      .ds-col--primary { pointer-events: none; }
+    }
+  }
+
+  .ds-col {
+    border-right: none;
+    padding-top: 100px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ds-col--primary {
+    width: 100vw;
+    z-index: 10;
+  }
+
+  .ds-col--secondary {
+    left: 0;
+    width: 100vw;
+    z-index: 20;
+    // Managed by GSAP xPercent (initial 100)
+    padding: 100px 40px 40px;
+  }
+
+  .ds-col--preview {
+    display: none !important; // Forced hide
+  }
+
+  .ds-primary-link {
+    font-size: 1.8rem;
+    padding: 18px 40px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .ds-sub-link {
+    padding: 22px 0;
+    &__title { font-size: 1.2rem; }
+  }
+
+  .ds-close-btn {
+    top: 30px;
+    right: 30px;
+    z-index: 100;
+  }
+
+  .ds-col-footer {
+    padding: 60px 40px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .ds-preview-text {
+    padding: 4rem 3rem;
+    h4 { font-size: 3rem; }
+  }
+}

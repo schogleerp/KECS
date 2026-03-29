@@ -1,0 +1,80 @@
+@use './variables' as *;
+
+.magnetic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 3rem;
+  background-color: transparent;
+  color: $color-brand-blue;
+  border: 1px solid rgba($color-brand-blue, 0.3);
+  border-radius: 500px;
+  font-family: $font-sans;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+
+  .magnetic-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    pointer-events: none;
+  }
+
+  .magnetic-text, .magnetic-arrow {
+    display: flex;
+    flex-direction: column;
+    height: 1.2rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .text-inner, .text-duplicate, svg {
+    display: block;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .text-duplicate, .arrow-duplicate {
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  .magnetic-arrow {
+    svg {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+  }
+
+  &:hover {
+    background-color: $color-brand-blue;
+    color: $color-white;
+    border-color: $color-brand-blue;
+
+    .text-inner, .text-duplicate {
+      transform: translateY(-100%);
+    }
+
+    .magnetic-arrow svg {
+      transform: translateY(-100%) rotate(45deg);
+    }
+  }
+}
+
+.magnetic-btn.light {
+  color: $color-white;
+  border-color: rgba($color-white, 0.3);
+
+  &:hover {
+    background-color: $color-white;
+    color: $color-brand-blue;
+    border-color: $color-white;
+  }
+}

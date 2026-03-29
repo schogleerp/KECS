@@ -1,0 +1,23 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.quote-section {
+  background-color: $color-brand-blue;
+  color: $color-white;
+  padding: 8rem 4rem;
+  
+  .quote-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      @include heading-1;
+      color: $color-white;
+    }
+  }
+
+  @include respond-down($bp-mobile) {
+    padding: 5rem 2rem;
+  }
+}

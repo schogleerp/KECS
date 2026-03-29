@@ -1,0 +1,145 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.admissions-extra-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: $color-brand-blue;
+
+  .admissions-wrapper {
+    display: flex;
+    width: 100%;
+
+    .admissions-block {
+      flex: 1;
+      padding: 10rem 6rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+
+      .block-watermark {
+        position: absolute;
+        top: 20%;
+        left: 0;
+        width: 100%;
+        font-family: $font-serif;
+        font-size: 15vw;
+        color: rgba($color-white, 0.04);
+        font-weight: $weight-bold;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 1;
+        will-change: transform;
+      }
+
+      .block-header {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .block-num {
+          font-family: $font-sans;
+          font-size: 0.75rem;
+          font-weight: $weight-bold;
+          letter-spacing: 0.2em;
+          color: rgba($color-white, 0.4);
+        }
+
+        h3 {
+          font-family: $font-serif;
+          font-size: clamp(2.5rem, 4vw, 4rem);
+          font-weight: $weight-bold;
+          color: $color-white;
+          margin: 0;
+        }
+      }
+
+      .admissions-list {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        gap: 3.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+
+          .list-item-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            h4 {
+              font-family: $font-sans;
+              font-size: 1.25rem;
+              font-weight: $weight-bold;
+              color: $color-white;
+              margin: 0;
+              white-space: nowrap;
+            }
+
+            .item-line {
+              flex: 1;
+              height: 1px;
+              background-color: rgba($color-white, 0.15);
+            }
+          }
+
+          p {
+            font-size: 1rem;
+            color: rgba($color-white, 0.6);
+            line-height: 1.6;
+            max-width: 450px;
+            margin: 0;
+          }
+        }
+      }
+
+      &.admissions-bg {
+        background-color: #1a1a1a;
+        border-right: 1px solid rgba($color-white, 0.1);
+      }
+
+      &.extra-bg {
+        background-color: #111111;
+        
+        .block-watermark {
+          color: rgba($color-white, 0.03);
+        }
+      }
+    }
+  }
+
+  @include respond-down($bp-desktop) {
+    .admissions-wrapper .admissions-block {
+      padding: 8rem 3rem;
+    }
+  }
+
+  @include respond-down($bp-tablet) {
+    .admissions-wrapper {
+      flex-direction: column;
+      .admissions-block {
+        padding: 6rem 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid rgba($color-white, 0.1);
+        
+        .block-watermark {
+          display: none;
+        }
+      }
+    }
+  }
+}

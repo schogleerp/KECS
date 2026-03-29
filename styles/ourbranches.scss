@@ -1,0 +1,166 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.ob-v2-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  overflow: clip;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  padding: 10rem 0;
+
+  @include respond-down($bp-tablet) {
+    padding: 6rem 0;
+  }
+
+  // ── FULLSCREEN BACKGROUND STAGE ──
+  .ob-v2-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    
+    .ob-v2-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+      z-index: 2;
+    }
+
+    .ob-v2-bg-img {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 1.2s;
+      
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        .object-cover { transform: scale(1.05); }
+      }
+
+      .object-cover {
+        object-fit: cover;
+        transform: scale(1.1);
+        transition: transform 10s linear;
+      }
+    }
+  }
+
+  .ob-v2-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .ob-v2-header {
+    margin-bottom: 5rem;
+    max-width: 600px;
+    
+    .kicker { color: $color-gold; letter-spacing: 0.5em; margin-bottom: 1rem; display: block; }
+    .ds-heading-large { color: #fff; font-weight: $weight-black; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .ob-v2-sub { font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.5); }
+  }
+
+  // ── INTERACTIVE GRID ──
+  .ob-v2-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+
+    @include respond-down($bp-desktop) { grid-template-columns: repeat(2, 1fr); }
+    @include respond-down($bp-tablet) { grid-template-columns: 1fr; }
+  }
+
+  .ob-interactive-card {
+    position: relative;
+    height: 380px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    @include respond-down($bp-tablet) {
+      height: 300px;
+    }
+
+    .ob-card-glass {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(5px);
+      z-index: -1;
+      transition: background 0.4s ease;
+    }
+
+    .ob-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      .ob-card-index { font-family: $font-serif; font-size: 0.8rem; font-weight: $weight-bold; color: $color-gold; opacity: 0.4; letter-spacing: 0.2em; }
+      .ob-card-loc { font-size: 0.65rem; font-weight: $weight-bold; letter-spacing: 0.15em; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+    }
+
+    .ob-card-main {
+      .ob-card-name {
+        font-family: $font-serif;
+        font-size: 1.8rem;
+        font-weight: $weight-black;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        transition: transform 0.4s ease;
+      }
+
+      .ob-card-details {
+        display: flex;
+        gap: 2rem;
+        opacity: 0.3;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        transform: translateY(10px);
+
+        .detail {
+          .label { font-size: 0.55rem; font-weight: $weight-bold; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); display: block; margin-bottom: 0.5rem; }
+          .value { font-size: 0.85rem; color: #fff; font-weight: $weight-semibold; display: block; }
+        }
+      }
+    }
+
+    .ob-card-cta {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+
+      .ob-card-link {
+        font-size: 0.7rem;
+        font-weight: $weight-bold;
+        letter-spacing: 0.2em;
+        color: $color-gold;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+    }
+
+    // ── HOVER STATE ──
+    &:hover, &.active {
+      transform: translateY(-8px);
+      border-color: rgba($color-gold, 0.3);
+      
+      .ob-card-glass { background: rgba(255,255,255,0.06); }
+      .ob-card-name { transform: translateY(-5px); }
+      .ob-card-details { opacity: 1; transform: translateY(0); }
+      .ob-card-cta { opacity: 1; transform: translateY(0); }
+    }
+  }
+}

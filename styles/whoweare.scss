@@ -1,0 +1,269 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.who-we-are {
+  background-color: $color-background;
+  padding: 8rem 0;
+  position: relative;
+  // ── High-Fidelity Header Bar ──
+  .wa-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    border-bottom: 1px solid rgba($color-border, 0.1);
+    background: $color-white;
+    position: relative;
+    z-index: 100;
+
+    @include respond-down($bp-tablet) {
+      padding: 1rem 1.5rem;
+    }
+
+    .wa-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      .wa-topbar-rule { width: 1.5rem; height: 1px; background-color: $color-brand-red; }
+      .wa-topbar-label {
+        font-family: $font-sans;
+        font-size: 0.65rem;
+        font-weight: $weight-bold;
+        letter-spacing: 0.2rem;
+        color: $color-brand-red;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  // ── THE REGISTRY GRID (Strict Architectural Tracks) ──
+  .wa-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+    position: relative;
+    z-index: 5;
+
+    @include respond-down($bp-desktop) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  // ── COL 1: The Pinned Portrait (Columns 1-5) ──
+  .wa-pinned-col {
+    grid-column: 1 / span 5;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 10;
+
+    @include respond-down($bp-desktop) {
+      width: 100%;
+      height: auto;
+      padding: 4rem 1.5rem;
+      background: $color-background;
+    }
+
+    .wa-pin-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wa-museum-frame {
+      perspective: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .wa-physical-case {
+        padding: 24px 24px 20px;
+        background: #0d1217; // Heavy obsidian
+        box-shadow: 
+          0 40px 80px rgba(0,0,0,0.35),
+          0 10px 20px rgba(0,0,0,0.2); // Removed white shadow halo
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .wa-gold-inner-rim {
+          padding: 4px;
+          background: linear-gradient(135deg, #c5a56d 0%, #ecd3a3 50%, #c5a56d 100%);
+          box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+
+          .wa-mat-board {
+            padding: 40px;
+            background: #fdfdfc;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.45);
+            
+            .wa-portrait-unit {
+              position: relative;
+              background: #ddd;
+              overflow: hidden;
+
+              .wa-actual-portrait {
+                width: 100%;
+                height: auto;
+                display: block;
+                filter: contrast(1.05) saturate(0.95);
+              }
+            }
+          }
+        }
+
+        // V6 Anchor: Plaque fixed within the case unit
+        .wa-museum-plaque {
+          margin-top: 1.5rem;
+          width: 90%;
+          position: relative;
+          background: linear-gradient(135deg, #b8995d 0%, #ecd3a3 50%, #b8995d 100%);
+          padding: 0.8rem 1.5rem;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          border: 1px solid rgba(0,0,0,0.1);
+
+          &::before {
+            content: ''; position: absolute; inset: 0;
+            background: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 10px);
+          }
+
+          .plaque-bracket {
+            position: absolute;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.4);
+            &.top-l { top: 6px; left: 6px; }
+            &.top-r { top: 6px; right: 6px; }
+          }
+
+          .plaque-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            
+            .plaque-name {
+              font-family: $font-serif;
+              font-size: 1.8rem; // Authority boost
+              font-weight: 800;
+              color: #1a1a1a;
+              letter-spacing: -0.01em; 
+            }
+            .plaque-dates {
+              font-size: 0.65rem;
+              font-weight: 800;
+              letter-spacing: 0.2rem;
+              color: rgba(0,0,0,0.55);
+              margin-top: 0.3rem;
+              text-transform: uppercase;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ── COL 2: Legacy Narrative (Columns 6-12) ──
+  .wa-narrative-col {
+    grid-column: 6 / span 7;
+    position: relative;
+    padding: 0;
+    background: $color-white; // High contrast narrative zone
+    z-index: 20;
+
+    .divider {
+      position: absolute;
+      left: 0; top: 0; height: 100%; width: 1px; z-index: 2;
+      background: rgba($color-border, 0.1);
+    }
+
+    .wa-archive-plate {
+      min-height: 25vh; // Major gap reduction
+      padding: 4rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 2px solid rgba($color-border, 0.05); // Sharper separators
+
+      @include respond-down($bp-desktop) {
+        padding: 4rem 1.5rem;
+        min-height: auto;
+      }
+
+      .wa-plate-header {
+        margin-bottom: 2.5rem;
+        .wa-plate-kicker {
+          font-family: $font-sans;
+          font-size: 0.65rem;
+          font-weight: 800;
+          letter-spacing: 0.3em;
+          color: $color-brand-red;
+          display: block;
+          margin-bottom: 0.8rem;
+        }
+        .wa-plate-title {
+          font-family: $font-serif;
+          font-size: clamp(2rem, 3.5vw, 3.2rem);
+          font-weight: 800;
+          color: $color-brand-blue;
+          letter-spacing: -0.01em; // Optimal Institutional Weight
+          line-height: 1.1;
+        }
+      }
+
+      p {
+        font-family: $font-sans;
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: rgba($color-text, 0.85);
+        max-width: 650px;
+        margin-bottom: 1.5rem;
+        text-align: justify;
+        text-justify: inter-word;
+
+        strong { color: $color-brand-blue; font-weight: 800; }
+      }
+
+      .wa-archive-stats {
+        margin-top: 3.5rem;
+        display: flex;
+        gap: 5rem;
+        padding-top: 3.5rem;
+        border-top: 1px solid rgba($color-border, 0.1);
+
+        @include respond-down($bp-tablet) {
+          flex-direction: column;
+          gap: 2.5rem;
+        }
+
+        .wa-stat-card {
+          display: flex;
+          flex-direction: column;
+          .wa-stat-val {
+            font-family: $font-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: $color-brand-blue;
+            line-height: 1;
+            &::after {
+              content: ''; display: block; width: 30px; height: 2px;
+              background: $color-gold; margin-top: 0.8rem;
+            }
+          }
+          .wa-stat-tag {
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.2rem;
+            color: rgba($color-brand-blue, 0.45);
+            text-transform: uppercase;
+            margin-top: 0.6rem;
+          }
+        }
+      }
+    }
+  }
+}

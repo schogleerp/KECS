@@ -1,0 +1,143 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.principal-message-section {
+  background-color: $color-white;
+  padding: 8rem 0;
+  position: relative;
+  z-index: 5;
+
+  .pm-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .pm-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+
+    .pm-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      color: $color-gold;
+      text-transform: uppercase;
+    }
+
+    .pm-index {
+      font-family: serif;
+      font-size: 1.2rem;
+      color: rgba($color-brand-blue, 0.2);
+    }
+  }
+
+  .pm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 8rem;
+    align-items: flex-start;
+
+    @include respond-down($bp-tablet) {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .pm-portrait-col {
+    .pm-portrait-container {
+      position: relative;
+
+      .pm-portrait-img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      }
+
+      .pm-portrait-info {
+        margin-top: 2rem;
+        
+        .pm-name {
+          font-family: serif;
+          font-size: 1.6rem;
+          color: $color-brand-blue;
+          margin-bottom: 0.25rem;
+          font-weight: 600;
+        }
+
+        .pm-title {
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: $color-gold;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .pm-message-col {
+    .pm-message-content {
+      p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: rgba($color-brand-blue, 0.8);
+        margin-bottom: 2rem;
+
+        &.pm-lead {
+          font-size: 1.25rem;
+          color: $color-brand-blue;
+          font-weight: 500;
+        }
+
+        &.pm-invitation {
+          font-weight: 600;
+          color: $color-brand-blue;
+        }
+
+        strong {
+          color: $color-brand-blue;
+          font-weight: 700;
+        }
+      }
+
+      .pm-quote {
+        margin: 3rem 0;
+        padding: 2rem;
+        border-left: 4px solid $color-gold;
+        background: rgba($color-gold, 0.05);
+        font-family: serif;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        color: $color-brand-blue;
+        font-style: italic;
+
+        strong {
+          font-style: normal;
+        }
+      }
+
+      .pm-signature {
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .pm-sig-name {
+          font-family: serif;
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: $color-brand-blue;
+        }
+
+        .pm-sig-creds {
+          font-size: 0.85rem;
+          color: rgba($color-brand-blue, 0.6);
+        }
+      }
+    }
+  }
+}

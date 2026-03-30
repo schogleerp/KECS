@@ -184,7 +184,7 @@
     transition: all 0.8s;
   }
 
-  @include respond-down($bp-phablet) {
+  @include respond-down($bp-tablet) {
     padding: 0.8rem 0;
     
     .header-grid { 
@@ -194,7 +194,7 @@
     .branding-zone {
       .logo-identity {
         .main-logo { 
-          max-width: 100px; // Reduced from 140px for Decor Systems minimal look
+          max-width: 135px; // Force Decor Systems architectural scale
         }
       }
     }

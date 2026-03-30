@@ -196,7 +196,7 @@
         .logo-identity {
           transform: none !important; // Prevent inconsistent scaling on mobile
           .main-logo { 
-            max-width: 85px; // Sharply reduced and locked for minimal mobile footprint
+            max-width: 35vw; // Adjusted to exactly 35% of screen width as requested
           }
         }
       }

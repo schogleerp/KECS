@@ -39,10 +39,10 @@
 
 .ds-menu-label {
   font-family: $font-sans;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #888;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #1a1a1a;
 }
 
 .ds-back-pill {
@@ -50,20 +50,20 @@
   border: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
   padding: 0;
   
   svg {
-    color: $color-gold;
+    color: #1a1a1a;
     transition: transform 0.3s ease;
   }
 
   span {
     font-family: $font-sans;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     color: #1a1a1a;
   }
 
@@ -84,9 +84,10 @@
   span {
     font-family: $font-sans;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0.15em;
     color: #1a1a1a;
+    text-transform: uppercase;
   }
 
   svg {
@@ -102,35 +103,31 @@
 .ds-menu-viewport {
   flex: 1;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .ds-menu-list, .ds-submenu-list {
   position: absolute;
   width: 100%;
-  max-width: 800px;
-  padding: 0 50px;
+  left: 0;
   display: flex;
   flex-direction: column;
   will-change: transform, opacity;
-
-  @include respond-down($bp-tablet) {
-    padding: 0 24px;
-  }
 }
 
 .ds-items-container, .ds-sub-items {
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .ds-menu-item, .ds-submenu-item {
   position: relative;
-  overflow: hidden;
+  width: 100%;
 }
 
 .ds-item-link, .ds-sub-link {
@@ -138,54 +135,50 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 24px 0;
+  padding: 1.8rem 50px;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
   text-decoration: none;
   color: #1a1a1a;
-  transition: padding-left 0.4s ease;
+  transition: background 0.3s ease;
 
   @include respond-down($bp-tablet) {
-    padding: 20px 0;
+    padding: 1.5rem 24px;
   }
 
   &:hover {
-    padding-left: 20px;
-    
-    .ds-item-title, .ds-sub-text {
-      color: $color-gold;
-    }
+    background: #f9f9f9;
   }
 }
 
 .ds-item-title {
-  font-family: 'Arial Black', sans-serif;
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+  font-family: $font-sans;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
   transition: color 0.3s ease;
 
   @include respond-down($bp-tablet) {
-    font-size: 1.3rem; // Aligned with Decor Systems (approx 20px)
+    font-size: 1.3rem;
   }
 }
 
 .ds-item-count {
-  width: 36px;
-  height: 36px;
-  border: 1px solid #ddd;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d8d8d6;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: $font-sans;
-  font-size: 11px;
-  font-weight: 600;
-  color: #888;
+  font-size: 10px;
+  font-weight: 400;
+  color: #1a1a1a;
   margin-left: 20px;
   flex-shrink: 0;
 }
@@ -205,16 +198,19 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 40px;
-  border-bottom: 2px solid #1a1a1a;
-  padding-bottom: 12px;
+  margin-bottom: 2rem;
+  padding: 2rem 50px 1rem;
+  border-bottom: 1px solid #1a1a1a;
+  
+  @include respond-down($bp-tablet) {
+    padding: 1.5rem 24px 0.8rem;
+  }
 }
 
 .ds-sub-title {
-  font-family: 'Arial Black', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 900;
-  text-transform: uppercase;
+  font-family: $font-sans;
+  font-size: 1.1rem;
+  font-weight: 600;
   letter-spacing: 0.05em;
   margin: 0;
 }
@@ -222,26 +218,26 @@
 .ds-view-all {
   font-family: $font-sans;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.1em;
   color: #888;
   text-decoration: none;
   
   &:hover {
-    color: $color-gold;
+    color: #1a1a1a;
   }
 }
 
 .ds-sub-text {
-  font-family: 'Arial Black', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 3rem);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1;
+  font-family: $font-sans;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   transition: color 0.3s ease;
 
   @include respond-down($bp-tablet) {
-    font-size: 1.1rem; // Refined sub-link scale for mobile
+    font-size: 1.1rem;
   }
 }
 

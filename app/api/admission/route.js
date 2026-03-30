@@ -5,7 +5,7 @@
  * Bypasses direct-fetch CORS and allows structured JSON reporting.
  */
 
-const ADMISSION_GAS_URL = 'https://script.google.com/macros/s/AKfycbyddytOqsJY3RLwAZX5foHtXXsn7PN1HLdJSneZCjCM6Hl-kfWkPD9unP-6zu9c2yN58A/exec';
+const ADMISSION_GAS_URL = 'https://script.google.com/macros/s/AKfycbx1yzngWA2NlVxpVjjCplV9j_PLlmTpRwoxiRmL6fGszBKghSBOKYCg003C23h2FPDK3Q/exec';
 
 export async function POST(request) {
   try {

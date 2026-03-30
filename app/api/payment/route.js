@@ -8,7 +8,7 @@
  */
 
 const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbwNXlLYGRXwnYiQ0B9s4Dk6XsLJFSDWM-AXL011U9Ae06qHSIsVOxcI8_d6w6qO_cJ4eg/exec';
+  'https://script.google.com/macros/s/AKfycbzxg1OMKHZG4Tx4uiXMdLkDSyfN8rie-juukURFGT1oT3kJ4OWnkXXw2KVoJvLPDqWiSw/exec';
 
 export async function POST(request) {
   try {

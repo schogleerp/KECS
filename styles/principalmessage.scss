@@ -40,9 +40,13 @@
     gap: 8rem;
     align-items: flex-start;
 
+    @include respond-down($bp-laptop) {
+      gap: 4rem;
+    }
+
     @include respond-down($bp-tablet) {
       grid-template-columns: 1fr;
-      gap: 4rem;
+      gap: 3rem;
     }
   }
 
@@ -66,6 +70,10 @@
           color: $color-brand-blue;
           margin-bottom: 0.25rem;
           font-weight: 600;
+          
+          @include respond-down($bp-phablet) {
+            font-size: 1.4rem;
+          }
         }
 
         .pm-title {
@@ -74,6 +82,10 @@
           color: $color-gold;
           letter-spacing: 0.1em;
           text-transform: uppercase;
+          
+          @include respond-down($bp-phablet) {
+            font-size: 0.7rem;
+          }
         }
       }
     }
@@ -87,20 +99,19 @@
         color: rgba($color-brand-blue, 0.8);
         margin-bottom: 2rem;
 
+        @include respond-down($bp-phablet) {
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+
         &.pm-lead {
           font-size: 1.25rem;
           color: $color-brand-blue;
           font-weight: 500;
-        }
-
-        &.pm-invitation {
-          font-weight: 600;
-          color: $color-brand-blue;
-        }
-
-        strong {
-          color: $color-brand-blue;
-          font-weight: 700;
+          
+          @include respond-down($bp-phablet) {
+            font-size: 1.1rem;
+          }
         }
       }
 
@@ -115,8 +126,10 @@
         color: $color-brand-blue;
         font-style: italic;
 
-        strong {
-          font-style: normal;
+        @include respond-down($bp-phablet) {
+          padding: 1.5rem;
+          font-size: 1.15rem;
+          margin: 2rem 0;
         }
       }
 

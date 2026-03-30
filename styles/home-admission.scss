@@ -27,7 +27,7 @@
 
     @include respond-down($bp-tablet) {
       grid-column: span 12;
-      padding: 5rem 6%;
+      padding: $section-padding-mobile 6%;
       border-right: none;
       border-bottom: 1px solid rgba($color-border, 0.08);
     }
@@ -117,7 +117,7 @@
 
     @include respond-down($bp-tablet) {
       grid-column: span 12;
-      padding: 5rem 6%;
+      padding: $section-padding-mobile 6%;
     }
 
     .ha-form-container {
@@ -127,6 +127,10 @@
       border: 1px solid rgba($color-border, 0.08);
       position: relative;
       
+      @include respond-down($bp-phablet) {
+        padding: 2rem 1.5rem;
+      }
+
       &::after {
         content: '';
         position: absolute;
@@ -158,6 +162,17 @@
     }
 
     .ha-form {
+      .ha-field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        
+        @include respond-down($bp-phablet) {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+
       .ha-field-group {
         margin-bottom: 1.75rem;
         label {
@@ -358,6 +373,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
+
+        @include respond-down($bp-phablet) {
+          grid-template-columns: 1fr;
+        }
 
         .sidebar-reg-card {
           background: rgba($color-background, 0.4);

@@ -211,7 +211,7 @@ export default function HomeAdmission() {
                 <input type="text" name="guardianName" placeholder="ENTER GUARDIAN NAME" required />
               </div>
 
-              <div className="ha-field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+              <div className="ha-field-row">
                 <div className="ha-field-group">
                   <label>Class for Admission</label>
                   <select name="studentClass" required>

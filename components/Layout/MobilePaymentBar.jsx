@@ -35,7 +35,7 @@ export default function MobilePaymentBar() {
     <>
       <div 
         ref={barRef}
-        className={`mobile-pay-sticky ${isScrolled ? 'visible' : ''}`}
+        className={`mobile-pay-sticky hide-desktop ${isScrolled ? 'visible' : ''}`}
         style={{
           position: 'fixed',
           bottom: '20px',

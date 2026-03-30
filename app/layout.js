@@ -3,6 +3,7 @@ import SmoothScroll from '../components/Layout/SmoothScroll';
 import Header from '../components/Layout/Header';
 import Footer from '../components/Layout/Footer';
 import ScrollLines from '../components/Layout/ScrollLines';
+import MobilePaymentBar from '../components/Layout/MobilePaymentBar';
 
 import { Syne, Playfair_Display } from 'next/font/google';
 
@@ -135,6 +136,7 @@ export default function RootLayout({ children }) {
               {children}
             </main>
           <Footer />
+          <MobilePaymentBar />
         </SmoothScroll>
       </body>
     </html>

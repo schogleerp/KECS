@@ -52,11 +52,16 @@ $leading-relaxed: 1.8;
 
 // Breakpoints
 $bp-mobile: 480px;
-$bp-tablet: 768px;
-$bp-desktop: 1024px;
-$bp-large: 1440px;
+$bp-phablet: 768px;
+$bp-tablet: 1024px;
+$bp-laptop: 1440px;
+$bp-desktop: 1920px;
+
+// Container & Sizing
+$container-max-width: 1600px;
+$container-padding: clamp(1.25rem, 5vw, 4rem);
 
 // Layout spacing — Decor Systems rhythm (120px desktop, 80px mobile)
 $section-padding:        7.5rem;   // ≈ 120px
-$section-padding-mobile: 5rem;     // ≈ 80px
+$section-padding-mobile: 4rem;     // ≈ 64px
 

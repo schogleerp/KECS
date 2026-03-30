@@ -61,10 +61,15 @@
     position: relative;
     z-index: 10;
 
-    @include respond-down($bp-desktop) {
+    @include respond-down($bp-laptop) {
+      grid-column: 1 / span 6;
+      height: 80vh;
+    }
+
+    @include respond-down($bp-tablet) {
       width: 100%;
       height: auto;
-      padding: 4rem 1.5rem;
+      padding: 4rem 1rem;
       background: $color-background;
     }
 
@@ -82,10 +87,10 @@
       
       .wa-physical-case {
         padding: 24px 24px 20px;
-        background: #0d1217; // Heavy obsidian
+        background: #0d1217; 
         box-shadow: 
           0 40px 80px rgba(0,0,0,0.35),
-          0 10px 20px rgba(0,0,0,0.2); // Removed white shadow halo
+          0 10px 20px rgba(0,0,0,0.2); 
         border-radius: 2px;
         display: flex;
         flex-direction: column;
@@ -116,7 +121,6 @@
           }
         }
 
-        // V6 Anchor: Plaque fixed within the case unit
         .wa-museum-plaque {
           margin-top: 1.5rem;
           width: 90%;
@@ -148,7 +152,7 @@
             
             .plaque-name {
               font-family: $font-serif;
-              font-size: 1.8rem; // Authority boost
+              font-size: 1.8rem;
               font-weight: 800;
               color: #1a1a1a;
               letter-spacing: -0.01em; 
@@ -164,6 +168,25 @@
           }
         }
       }
+
+      @include respond-down($bp-phablet) {
+        .wa-physical-case {
+          padding: 16px 16px 14px;
+          .wa-gold-inner-rim {
+            padding: 2px;
+            .wa-mat-board {
+              padding: 20px;
+            }
+          }
+          .wa-museum-plaque {
+            padding: 0.6rem 1rem;
+            .plaque-content {
+              .plaque-name { font-size: 1.4rem; }
+              .plaque-dates { font-size: 0.55rem; }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -172,8 +195,12 @@
     grid-column: 6 / span 7;
     position: relative;
     padding: 0;
-    background: $color-white; // High contrast narrative zone
+    background: $color-white; 
     z-index: 20;
+
+    @include respond-down($bp-laptop) {
+      grid-column: 7 / span 6;
+    }
 
     .divider {
       position: absolute;
@@ -189,7 +216,11 @@
       justify-content: center;
       border-bottom: 2px solid rgba($color-border, 0.05); // Sharper separators
 
-      @include respond-down($bp-desktop) {
+      @include respond-down($bp-laptop) {
+        padding: 4rem 3rem;
+      }
+
+      @include respond-down($bp-tablet) {
         padding: 4rem 1.5rem;
         min-height: auto;
       }

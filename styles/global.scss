@@ -299,6 +299,10 @@ html.lenis {
   .hide-mobile { display: none !important; }
 }
 
+@include respond-up($bp-phablet) {
+  .hide-desktop { display: none !important; }
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // HOVER UNDERLINE EFFECT — Decor Systems link style
 // Usage: add class "ds-hover-link" to any <a> or <button>

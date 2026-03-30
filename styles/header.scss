@@ -184,18 +184,79 @@
     transition: all 0.8s;
   }
 
-  @include respond-down($bp-tablet) {
-    padding: 1.2rem 0;
-    .header-grid { width: 94%; }
-    .actions-zone { gap: 1.5rem; }
+  @include respond-down($bp-phablet) {
+    padding: 0.8rem 0;
     
-    .pay-trigger { 
-       height: 32px;
-       border-radius: 0;
-       .btn-label-stack { padding: 0 0.8rem; .label-primary { font-size: 0.55rem; } }
-       .btn-status-stack { padding: 0 0.5rem; .header-upi { width: 22px; height: auto; } }
+    .header-grid { 
+      width: 96%; 
     }
-    .trigger-icon-architectural { width: 20px; gap: 5px; }
-    .trigger-label { display: none; }
+
+    .branding-zone {
+      .logo-identity {
+        .main-logo { 
+          max-width: 140px; // Compact logo for mobile
+        }
+      }
+    }
+
+    .actions-zone { 
+      gap: 1rem; 
+      
+      .action-btn {
+        &.pay-trigger { 
+           display: none; // Hidden on mobile, handled by sticky bottom bar
+        }
+        
+        &.menu-trigger {
+          gap: 0.8rem;
+          background: transparent;
+          padding: 0;
+          border-radius: 0;
+          border: none;
+
+          .trigger-icon-architectural { 
+            width: 22px; 
+            gap: 5px; 
+            .line { 
+              height: 1px; 
+              background: currentColor !important; 
+            } 
+          }
+          .trigger-label { 
+            display: block; 
+            font-size: 0.6rem; 
+            color: inherit !important;
+            letter-spacing: 0.15em;
+          } 
+
+          // Logic-based initial color
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  // --- Scrolled Mobile State Override ---
+  &.scrolled {
+    @include respond-down($bp-phablet) {
+       padding: 0.6rem 0;
+       background: rgba($color-white, 0.98);
+       backdrop-filter: blur(40px);
+
+       .menu-trigger {
+         color: $color-brand-blue !important;
+         .line { background: $color-brand-blue !important; }
+         .trigger-label { color: $color-brand-blue !important; }
+       }
+    }
+  }
+
+  // --- External Page Mobile Override ---
+  &.not-home {
+    @include respond-down($bp-phablet) {
+       .menu-trigger {
+          color: $color-brand-blue !important;
+       }
+    }
   }
 }

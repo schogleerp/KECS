@@ -122,9 +122,9 @@
     }
   }
 
-  @include respond-down($bp-desktop) {
+  @include respond-down($bp-laptop) {
     .admissions-wrapper .admissions-block {
-      padding: 8rem 3rem;
+      padding: 8rem 4rem;
     }
   }
 
@@ -132,12 +132,21 @@
     .admissions-wrapper {
       flex-direction: column;
       .admissions-block {
-        padding: 6rem 1.5rem;
+        padding: $section-padding-mobile 1.5rem;
         border-right: none;
         border-bottom: 1px solid rgba($color-white, 0.1);
+        gap: 3rem;
         
         .block-watermark {
           display: none;
+        }
+
+        .block-header h3 {
+           font-size: clamp(2rem, 8vw, 3rem);
+        }
+
+        .admissions-list {
+          gap: 2.5rem;
         }
       }
     }

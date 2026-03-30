@@ -56,10 +56,13 @@
     grid-template-columns: 1.2fr 1fr 0.9fr;
     border-bottom: 1px solid rgba($color-border, 0.12);
 
+    @include respond-down($bp-laptop) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
     @include respond-down($bp-tablet) {
       grid-template-columns: 1fr 1fr;
     }
-    @include respond-down($bp-mobile) {
+    @include respond-down($bp-phablet) {
       grid-template-columns: 1fr;
     }
   }
@@ -83,8 +86,9 @@
       &:last-child   { border-bottom: none; }
     }
 
-    @include respond-down($bp-mobile) {
+    @include respond-down($bp-phablet) {
       border-right: none !important;
+      padding: 3rem 1.5rem;
     }
   }
 
@@ -314,14 +318,18 @@
       gap: 0.75rem;
 
       a {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 600;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
         color: rgba($color-brand-blue, 0.3);
         text-decoration: none;
         transition: color 0.25s;
         &:hover { color: rgba($color-brand-blue, 0.8); }
+
+        @include respond-down($bp-phablet) {
+          font-size: 0.6rem;
+        }
       }
     }
 

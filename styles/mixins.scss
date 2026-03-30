@@ -14,7 +14,7 @@
 }
 
 @mixin respond-down($breakpoint) {
-  @media (max-width: $breakpoint) {
+  @media (max-width: ($breakpoint - 1px)) {
     @content;
   }
 }
@@ -23,6 +23,15 @@
   @media (min-width: $breakpoint) {
     @content;
   }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
 }
 
 // Modern, Meaningful Typography Scales

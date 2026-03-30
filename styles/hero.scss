@@ -127,51 +127,95 @@
     }
   }
   
-  .hero-v-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 1px;
-    height: 100%;
-    background: rgba($color-gold, 0.2);
-  }
-
-  .hero-scroll-indicator {
-    position: absolute;
-    bottom: 4rem;
-    left: 4.5rem;
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-
-    .indicator-track {
-      width: 1px;
-      height: 70px;
-      background: rgba($color-white, 0.12);
-      position: relative;
-      overflow: hidden;
-
-      .indicator-line {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: $color-gold;
-        transform-origin: top;
+  // --- RESPONSIVE ARCHITECTURE ---
+  @include respond-down($bp-laptop) {
+    .hero-content {
+      .hero-bottom-left-content {
+        padding-left: 6rem;
+        padding-bottom: 5rem;
+        .hero-unified-title {
+          max-width: 700px;
+        }
       }
     }
+  }
 
-    .indicator-text {
-      font-size: 0.5rem;
-      font-weight: 800;
-      letter-spacing: 0.45em;
-      color: $color-white;
-      opacity: 0.5;
-      writing-mode: vertical-lr;
-      text-transform: uppercase;
+  @include respond-down($bp-tablet) {
+    .hero-content {
+      .hero-bottom-left-content {
+        padding-left: 4.5rem;
+        padding-bottom: 6rem;
+        align-items: flex-start;
+        justify-content: flex-end;
+        
+        .hero-kicker {
+           text-align: left;
+        }
+
+        .hero-unified-title {
+          max-width: 80%;
+          align-items: flex-start; 
+          text-align: left;
+          
+          .mission-line {
+            &.primary-pogonia {
+              white-space: nowrap; // Forced single line as requested
+              line-height: 1.1;
+              font-size: clamp(0.9rem, 4.2vw, 1.8rem); 
+              letter-spacing: -0.02em;
+            }
+            &.secondary-technical-stack {
+              align-items: flex-start;
+              margin-left: 0;
+              margin-top: 1rem;
+              .technical-bold { font-size: 0.9rem; }
+              .technical-light { font-size: 0.8rem; }
+            }
+          }
+        }
+      }
+    }
+    .hero-v-line { display: none; } 
+  }
+
+  @include respond-down($bp-mobile) {
+    height: 100svh; 
+    .hero-content {
+       align-items: stretch; 
+       justify-content: stretch;
+
+        .hero-bottom-left-content {
+          width: 100%;
+          height: 100%;
+          padding-left: 2%; // Aligned exactly with the logo in header-grid (96% width)
+          padding-bottom: 8vh;
+          align-items: flex-start;
+          justify-content: flex-end;
+
+          .hero-kicker { 
+            margin-bottom: 1rem; 
+            text-align: left;
+            .tiny-label { font-size: 0.55rem; letter-spacing: 0.4em; } 
+          }
+          .hero-unified-title {
+             gap: 0.45rem; // Tightened vertical gap between lines
+             align-items: flex-start;
+             text-align: left;
+
+             .mission-line.primary-pogonia { 
+                font-size: clamp(0.55rem, 2.7vw, 1.2rem); 
+                letter-spacing: -0.02em; 
+                white-space: nowrap; 
+                line-height: 1; // Tightened line-height
+             }
+             .mission-line.secondary-technical-stack {
+                align-items: flex-start;
+                margin-top: 0.4rem; // Tightened gap to main title
+                .technical-bold { font-size: 0.65rem; }
+                .technical-light { font-size: 0.55rem; }
+             }
+          }
+       }
     }
   }
 }

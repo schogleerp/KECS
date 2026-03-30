@@ -76,26 +76,45 @@
   }
 
   @include respond-down($bp-tablet) {
-    padding: 8rem 0;
+    padding: $section-padding-mobile 0;
 
     .intro-layout {
       display: flex;
       flex-direction: column;
-      gap: 3rem;
+      gap: 2rem;
+    }
+
+    .intro-side-meta {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+      padding-top: 0;
     }
 
     .intro-main-content {
       padding-left: 0;
       
       .intro-heading {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
+        font-size: clamp(2rem, 8vw, 3.5rem);
       }
 
       .intro-details {
         display: flex;
         flex-direction: column;
-        gap: 2.5rem;
+        gap: 2rem;
+
+        .intro-paragraph {
+          font-size: 1rem;
+        }
       }
+    }
+  }
+
+  @include respond-down($bp-phablet) {
+    .intro-side-meta {
+      justify-content: space-between;
+      width: 100%;
     }
   }
 }

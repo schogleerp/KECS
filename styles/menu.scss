@@ -260,11 +260,65 @@
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
 .ds-menu-footer {
-  padding: 0 50px 40px;
+  border-top: 1px solid #e0e0e0;
+  padding: 1.5rem 50px 3rem; // Added bottom padding to avoid bubble overlap
   flex-shrink: 0;
+  background: #ffffff;
 
   @include respond-down($bp-tablet) {
-    padding: 0 24px 24px;
+    padding: 1.5rem 24px 4rem; // Extra bottom space for mobile
+  }
+}
+
+.ds-footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+
+  @include respond-down($bp-tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+.ds-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand-name {
+  font-family: $font-sans;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  letter-spacing: 0.05em;
+}
+
+.brand-loc {
+  font-family: $font-sans;
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+
+.footer-call {
+  font-family: $font-sans;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $color-gold;
+  }
+
+  @include respond-down($bp-tablet) {
+    font-size: 15px;
   }
 }
 

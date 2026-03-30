@@ -252,7 +252,6 @@ export default function MenuOverlay({ isOpen, onClose }) {
       </div>
 
       <div className="ds-menu-footer">
-        <div className="ds-footer-line" />
         <div className="ds-footer-content">
           <div className="ds-footer-brand">
             <span className="brand-name">K.E. Carmel School</span>

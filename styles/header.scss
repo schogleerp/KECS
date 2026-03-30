@@ -192,9 +192,12 @@
     }
 
     .branding-zone {
-      .logo-identity {
-        .main-logo { 
-          max-width: 135px; // Force Decor Systems architectural scale
+      .logo-anchor {
+        .logo-identity {
+          transform: none !important; // Prevent inconsistent scaling on mobile
+          .main-logo { 
+            max-width: 85px; // Sharply reduced and locked for minimal mobile footprint
+          }
         }
       }
     }

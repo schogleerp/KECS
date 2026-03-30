@@ -170,7 +170,7 @@
   transition: color 0.3s ease;
 
   @include respond-down($bp-tablet) {
-    font-size: 2.2rem;
+    font-size: 1.3rem; // Aligned with Decor Systems (approx 20px)
   }
 }
 
@@ -241,7 +241,7 @@
   transition: color 0.3s ease;
 
   @include respond-down($bp-tablet) {
-    font-size: 1.6rem;
+    font-size: 1.1rem; // Refined sub-link scale for mobile
   }
 }
 

@@ -155,11 +155,28 @@ export default function PaymentModal({ isOpen, onClose }) {
     setIsSubmitting(true);
     setSubmitError('');
     
+    // Construct dynamic path and filename to match user's architectural storage requirements
+    const currentYear = new Date().getFullYear();
+    const feeTypeName = formData.head === 'Tuition Fee' ? 'TuitionFee' : 'BusFee';
+    
+    // Format: root/year/month/Fee Type/
+    const folderPath = `${currentYear}/${formData.month}/${formData.head}`;
+    
+    // Format: Class_Section_StudentName_FeeType.jpg
+    const sectionPart = formData.section ? `_${formData.section}` : '';
+    const fileName = `${formData.className}${sectionPart}_${formData.studentName.replace(/\s+/g, ' ')}_${feeTypeName}.jpg`;
+
+    const payload = {
+      ...formData,
+      folderPath,
+      fileName
+    };
+
     try {
       const res = await fetch('/api/payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const result = await res.json();

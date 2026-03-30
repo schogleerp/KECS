@@ -103,17 +103,20 @@ export default function HomeAdmission() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // The Google Apps Script Web App URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyddytOqsJY3RLwAZX5foHtXXsn7PN1HLdJSneZCjCM6Hl-kfWkPD9unP-6zu9c2yN58A/exec';
-    
-    const formData = new FormData(e.target);
+    // Convert FormData to JSON object for cleaner API handling
+    const rawData = new FormData(e.target);
+    const data = Object.fromEntries(rawData.entries());
 
     try {
-      await fetch(SCRIPT_URL, {
+      const res = await fetch('/api/admission', {
         method: 'POST',
-        body: formData,
-        mode: 'no-cors' // Bypasses browser CORS blocking for standard GAS POSTs
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
+
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.error || 'Submission failed.');
+
       setShowSuccessModal(true);
       e.target.reset(); // Clear the form
     } catch (error) {
